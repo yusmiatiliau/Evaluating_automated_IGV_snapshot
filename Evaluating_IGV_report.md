@@ -13,23 +13,23 @@ This is done by creating a text file detailing the samples, track, region, etc t
 example of a script:
 ```
 new  
-genome /home/cenliau/00_nesi_projects/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta 
-snapshotDirectory /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV
-load /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam
+genome /nesi/project/brins03581//Ref_Cen/SB2.1_diploid_plusorg.fasta 
+snapshotDirectory /nesi/nobackup/brins03581/Cen/IGV
+load /nesi/nobackup/brins03581/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam
 goto chr01_hap1:2357085-2357661
 sort STRAND
 collapse
 colorBy BISULFITE
 snapshot
 
-load /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB045_controls/filteredModBam/SB1031_PB045.1.1.1_sup_5mC_5hmC_6mA_SQK.noSecondary.sorted.bam
+load /nesi/nobackup/brins03581/Genotyping_2025/PB045_controls/filteredModBam/SB1031_PB045.1.1.1_sup_5mC_5hmC_6mA_SQK.noSecondary.sorted.bam
 goto chr01_hap1:2357085-2357661
 sort STRAND
 collapse
 colorBy BISULFITE
 snapshot
 
-load /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB045_controls/filteredModBam/C06479.1.1.1_sup_5mC_5hmC_6mA_SQK.noSecondary.sorted.bam
+load /nesi/nobackup/brins03581/Genotyping_2025/PB045_controls/filteredModBam/C06479.1.1.1_sup_5mC_5hmC_6mA_SQK.noSecondary.sorted.bam
 goto chr01_hap1:2357085-2357661
 sort STRAND
 collapse
@@ -66,10 +66,11 @@ singularity exec docker://sahuno/igver:latest igver --help
 **Example 1:**
 
 ```
-singularity exec docker://sahuno/igver:latest igver --input /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
+DIR=/nesi/nobackup/brins03581/
+singularity exec docker://sahuno/igver:latest igver --input $DIR/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
 --regions chr01_hap1:2357085-2357661 \
---output /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV \
---genome /home/cenliau/00_nesi_projects/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
+--output $DIR/Cen/IGV \
+--genome /nesi/project/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
 --no-singularity
 ```
 
@@ -80,12 +81,14 @@ Result:
 **Example 2 (multiple regions):**
 
 ```
+DIR=/nesi/nobackup/brins03581/
+
 #multiple regions in one panel
 ingularity exec docker://sahuno/igver:latest igver \
---input /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
+--input $DIR/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
 --regions "chr01_hap1:2357085-2357661 chr01_hap1:2743045-2743294" \
---output /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV \
---genome /home/cenliau/00_nesi_projects/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
+--output $DIR/Cen/IGV \
+--genome /nesi/project/brins03581//Ref_Cen/SB2.1_diploid_plusorg.fasta \
 --no-singularity
 ```
 
@@ -98,10 +101,10 @@ Result:
 ```
 #multiple regions, with one snapshot each
 singularity exec docker://sahuno/igver:latest igver \
---input /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
---regions /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV/igver_region2.bed \
---output /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV \
---genome /home/cenliau/00_nesi_projects/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
+--input $DIR/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
+--regions $DIR/Cen/IGV/igver_region2.bed \
+--output $DIR/Cen/IGV \
+--genome /nesi/project/brins03581//Ref_Cen/SB2.1_diploid_plusorg.fasta \
 --no-singularity
 
 #region2.bed file:
@@ -120,11 +123,11 @@ chr01_hap1-2743045-2743294.geneB.png
 **Example 4 (multiple samples and regions):**
 
 ```
- singularity exec docker://sahuno/igver:latest igver --input /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
-/home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB037_clone_2025A/filteredModBam/C00106.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
+ singularity exec docker://sahuno/igver:latest igver --input $DIR/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
+$DIR/Genotyping_2025/PB037_clone_2025A/filteredModBam/C00106.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
 --regions "chr01_hap1:2357085-2357661 chr01_hap1:2743045-2743294" \
---output /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV/igver/ \
---genome /home/cenliau/00_nesi_projects/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
+--output $DIR/Cen/IGV/igver/ \
+--genome /nesi/project/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
 --no-singularity
 ```
 
@@ -160,10 +163,10 @@ script can be run in command line:
 
 ```
 #single bam track, multiple regions, using bed to define sites
-create_report /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV/igver_region2.bed \
---fasta /home/cenliau/00_nesi_projects/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
---tracks /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
---output /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV/igv_report_1.html
+create_report /$DIR/Cen/IGV/igver_region2.bed \
+--fasta /nesi/project/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
+--tracks $DIR/Genotyping_2025/PB037_clone_2025A/filteredModBam/C01208.1.1.1_sup_5mC_5hmC_6mA_SQK.nosecondary.sorted.bam \
+--output $DIR/Cen/IGV/igv_report_1.html
 ```
 
 Result: igv_report_1.html
@@ -177,17 +180,17 @@ Result: igv_report_1.html
 #include also --sampleinfo, but couldn't see it in the html report yet so far
 
 create_report \
-/home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV/combined_9samples_AF0.75_chr01_hap1.deepvariant.vcf.gz \
---fasta /home/cenliau/00_nesi_projects/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
---tracks /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB045_controls/unfilteredModBam/20_6121_546_01.1.1.1_sup_5mC_5hmC_6mA_SQK.sorted.bam  /home/cenliau/00_nesi_projects/brins03581_nobackup/Genotyping_2025/PB045_controls/unfilteredModBam/SB1031_PB045.1.1.1_sup_5mC_5hmC_6mA_SQK.sorted.bam \
---output /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV/igv_report_20_6121_SB1031_deepvariant_DP_GQ.html \
---sampleinfo /home/cenliau/00_nesi_projects/brins03581_nobackup/Cen/IGV/IGV_report_sample_info_file.txt \
+$DIR/Cen/IGV/combined_9samples_AF0.75_chr01_hap1.deepvariant.vcf.gz \
+--fasta /nesi/project/brins03581/Ref_Cen/SB2.1_diploid_plusorg.fasta \
+--tracks $DIR/Genotyping_2025/PB045_controls/unfilteredModBam/20_6121_546_01.1.1.1_sup_5mC_5hmC_6mA_SQK.sorted.bam  $DIR/Genotyping_2025/PB045_controls/unfilteredModBam/SB1031_PB045.1.1.1_sup_5mC_5hmC_6mA_SQK.sorted.bam \
+--output $DIR/Cen/IGV/igv_report_20_6121_SB1031_deepvariant_DP_GQ.html \
+--sampleinfo $DIR/Cen/IGV/IGV_report_sample_info_file.txt \
 --samples 20_6121_546_01 SB1031_PB045 \ #Which samples to be in the report
 --sample-columns GT DP GQ \ #what sample informations to be included in the report
 --info-columns AF #what info information to be included in the report
 ```
 
-Result: igv_report_20_6121_SB1031_deepvariant_DP_GQ.html
+Result on NeSI (as too large to upload on github): /nesi/nobackup/brins03581/Cen/IGV/igv_report_20_6121_SB1031_deepvariant_DP_GQ.html
 
 File for these 2 samples and small VCF is already quite large (~70 MB), but can still run interactively on Jupyter. Run on larger VCF and more samples would possibly need to be run in slurm script.
 
