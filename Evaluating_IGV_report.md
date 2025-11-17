@@ -143,7 +143,7 @@ Limitations:
 
 ## **3. IGV reports**
 
-So far, my favourite tool, as it create an html report with embedded IGV snapshot (unlinked to input file, so is quite flexible, e.g.:
+So far, my favourite tool, as it creates an html report with an embedded IGV snapshot (unlinked to input files, so is quite flexible, e.g.:
 - to move the report file elsewhere, e.g. download to your computer
 - move the BAM file to different directory, etc
 
