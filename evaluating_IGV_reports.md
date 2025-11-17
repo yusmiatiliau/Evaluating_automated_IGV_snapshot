@@ -1,5 +1,0 @@
-#Evaluating various automated IGV snapshots/reports
-
-
-
-
