@@ -1,9 +1,10 @@
-# Evaluating various automated IGV snapshot/report tools
+# Evaluating various automated IGV snapshot/report/Plotting tools
 
-Try 3 different tools:
+Try 4 different tools:
 - IGV batch script (https://github.com/igvteam/igv/wiki/Batch-commands/32fbbbf3c7b7c79a5e531f03346c4624716422b0)
 - IGVer (https://github.com/shahcompbio/igver)
 - IGV-report (https://github.com/igvteam/igv-reports)
+- Samplot for plotting SVs
 
 
 ## **1. IGV batch script**
